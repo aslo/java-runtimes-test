@@ -5,9 +5,6 @@
 dir=`dirname $0`
 declare -a test_apps=($dir/fixtures/jar-app $dir/fixtures/servlet-app)
 
-# HACK: it would be nice if mvn gcloud could just do this
-gcloud_directory=`which gcloud | sed 's/\(.*\)\/bin\/.*/\1/'`
-
 # TODO grep from gcloud output to avoid hard coding these?
 project_version="debugger-test"
 project_url_suffix="tmp-test-project-1380.appspot.com"
@@ -19,7 +16,7 @@ function deploy_and_verify() {
   pushd $app_dir
 
   # build and deploy
-  mvn clean gcloud:deploy -Dgcloud.gcloud_directory=$gcloud_directory -Dgcloud.version=$project_version -Dgcloud.promote=false
+  mvn clean appengine:deploy -Dapp.deploy.version=$project_version -Dapp.deploy.promote=false
 
   # set a breakpoint
   # FIXME: do this without needing to know about the app's source structure
