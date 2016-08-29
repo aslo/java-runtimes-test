@@ -4,11 +4,11 @@
 	<parent>
 		<!-- Your own application should inherit from spring-boot-starter-parent -->
 		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-samples</artifactId>
-		<version>1.4.1.BUILD-SNAPSHOT</version>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>1.4.0.RELEASE</version>
 	</parent>
 	<artifactId>spring-boot-sample-servlet</artifactId>
-	<packaging>war</packaging>
+	<packaging>jar</packaging>
 	<name>Spring Boot Servlet Sample</name>
 	<description>Spring Boot Servlet Sample</description>
 	<url>http://projects.spring.io/spring-boot/</url>
@@ -17,8 +17,8 @@
 		<url>http://www.spring.io</url>
 	</organization>
 	<properties>
-		<main.basedir>${basedir}/../..</main.basedir>
 		<m2eclipse.wtp.contextRoot>/</m2eclipse.wtp.contextRoot>
+		<gcloud-maven-plugin-version>2.0.9.106.v20160420</gcloud-maven-plugin-version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -34,17 +34,17 @@
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-test</artifactId>
-			<scope>test</scope>
-		</dependency>
 	</dependencies>
 	<build>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<groupId>com.google.cloud.tools</groupId>
+				<artifactId>appengine-maven-plugin</artifactId>
+				<version>0.1.1-beta</version>
 			</plugin>
 		</plugins>
 	</build>
