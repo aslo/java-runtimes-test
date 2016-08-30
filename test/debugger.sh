@@ -24,7 +24,7 @@ function deploy_and_verify() {
 
   # set a breakpoint
   # FIXME: do this without needing to know about the app's source structure
-  gcloud beta debug snapshots create $app_dir/src/main/java/com/sample/HelloServlet.java:35
+  gcloud beta debug snapshots create $app_dir/src/main/java/com/sample/HelloServlet.java:35 --target=$project_version
 
   # exercise the breakpoint
   curl $deployed_service_url
