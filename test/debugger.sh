@@ -2,6 +2,8 @@
 #
 # Tests cloud debugger integration
 
+set -e
+
 project_root=`dirname $0`/..
 fixtures_dir=$project_root/fixtures
 declare -a test_apps=($fixtures_dir/jar-app $fixtures_dir/servlet-app)
