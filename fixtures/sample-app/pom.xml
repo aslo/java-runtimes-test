@@ -4,9 +4,9 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.example</groupId>
-    <artifactId>sample-jar-app</artifactId>
+    <artifactId>sample-app</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-
+    <packaging>war</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -23,8 +23,8 @@
     <build>
 	<plugins>
 	    <plugin>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-maven-plugin</artifactId>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
 	    </plugin>
 	    <plugin>
 	      <groupId>com.google.cloud.tools</groupId>
