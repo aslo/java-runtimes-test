@@ -2,12 +2,17 @@
 #
 # Tests cloud debugger integration
 
-dir=`dirname $0`
-declare -a test_apps=($dir/fixtures/jar-app $dir/fixtures/servlet-app)
+set -e
 
-# TODO grep from gcloud output to avoid hard coding these?
+project_root=`dirname $0`/..
+fixtures_dir=$project_root/fixtures
+declare -a test_apps=($fixtures_dir/jar-app $fixtures_dir/servlet-app)
+
+source $project_root/helpers.sh
+
+project=`get_active_project`
+project_url_suffix="$(echo $project | tr _ -).appspot.com"
 project_version="debugger-test"
-project_url_suffix="tmp-test-project-1380.appspot.com"
 deployed_service_url="https://$project_version-dot-$project_url_suffix"
 
 function deploy_and_verify() {
@@ -16,12 +21,15 @@ function deploy_and_verify() {
   pushd $app_dir
 
   # build and deploy
-  mvn clean appengine:deploy -Dapp.deploy.version=$project_version -Dapp.deploy.promote=false
+  mvn clean appengine:stage
+  sed -i "s/GCP_PROJECT/${project}/g" target/appengine-staging/Dockerfile
+  gcloud app deploy target/appengine-staging/app.yaml --version=$project_version --no-promote --quiet
+
+  # TODO clear existing breakpoints
 
   # set a breakpoint
   # FIXME: do this without needing to know about the app's source structure
-  # TODO clear existing breakpoints
-  gcloud beta debug snapshots create $app_dir/src/main/java/com/sample/HelloServlet.java:35
+  gcloud beta debug snapshots create $app_dir/src/main/java/com/sample/HelloServlet.java:35 --target $project_version
 
   # exercise the breakpoint
   curl $deployed_service_url
@@ -33,7 +41,7 @@ function deploy_and_verify() {
   popd
 }
 
-for app in $test_apps; do
+for app in "${test_apps[@]}"; do
   deploy_and_verify $app
 done
 
