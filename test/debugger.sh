@@ -41,7 +41,7 @@ function deploy_and_verify() {
   popd
 }
 
-for app in $test_apps; do
+for app in "${test_apps[@]}"; do
   deploy_and_verify $app
 done
 

@@ -17,6 +17,6 @@ push_image openjdk8:latest openjdk8
 push_image jetty9:latest jetty9
 
 # run all tests
-for file in $files; do
+for file in ${files[@]}; do
   $file 
 done
