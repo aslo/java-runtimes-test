@@ -26,6 +26,19 @@
         <groupId>com.google.cloud.tools</groupId>
         <artifactId>appengine-maven-plugin</artifactId>
         <version>0.1.1-beta</version>
+        <configuration>
+          <dockerDirectory>target/classes/docker</dockerDirectory>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.0.1</version>
+        <configuration>
+          <delimiters>
+            <delimiter>${*}</delimiter>
+          </delimiters>
+        </configuration>
       </plugin>
     </plugins>
   </build>
@@ -38,6 +51,13 @@
         <app.stage.dockerDirectory>src/main/docker-openjdk</app.stage.dockerDirectory>
       </properties>
       <build>
+        <resources>
+          <resource>
+            <directory>src/main/docker-openjdk</directory>
+            <filtering>true</filtering>
+            <targetPath>docker</targetPath>
+          </resource>
+        </resources>
         <plugins>
           <plugin>
             <groupId>org.springframework.boot</groupId>
@@ -59,6 +79,15 @@
           <scope>provided</scope>
         </dependency>
       </dependencies>
+      <build>
+        <resources>
+          <resource>
+            <directory>src/main/docker-jetty</directory>
+            <filtering>true</filtering>
+            <targetPath>docker</targetPath>
+          </resource>
+        </resources>
+      </build>
     </profile>
   </profiles>
 </project>

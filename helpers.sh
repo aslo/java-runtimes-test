@@ -3,7 +3,7 @@
 # Common functions for tests
 
 function get_active_project() {
-  echo `gcloud info | sed -rn 's/Project: \[(.*)\]/\1/p' | sed s/-/_/`
+  echo `gcloud info | sed -rn 's/Project: \[(.*)\]/\1/p'`
 }
 
 function push_image() {
@@ -35,12 +35,12 @@ function deploy() {
 
   pushd $app_dir
 
-  # build and stage
-  mvn clean appengine:stage -P $runtime
-  sed -i "s/GCP_PROJECT/`get_active_project`/g" target/appengine-staging/Dockerfile
+  # build, stage, and deploy
+  mvn clean appengine:deploy -P $runtime \
+  -Dapp.deploy.project=`get_active_project` \
+  -Dapp.deploy.version=$project_version \
+  -Dapp.deploy.promote=false \
 
-  # deploy
-  gcloud app deploy target/appengine-staging/app.yaml --version=$project_version --no-promote --quiet
 
   popd
 }
