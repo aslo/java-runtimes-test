@@ -23,10 +23,6 @@
     <build>
 	<plugins>
 	    <plugin>
-              <groupId>org.springframework.boot</groupId>
-              <artifactId>spring-boot-maven-plugin</artifactId>
-	    </plugin>
-	    <plugin>
 	      <groupId>com.google.cloud.tools</groupId>
 	      <artifactId>appengine-maven-plugin</artifactId>
 	      <version>0.1.1-beta</version>
@@ -41,6 +37,14 @@
           <project.packaging>jar</project.packaging>
           <app.stage.dockerDirectory>src/main/docker-openjdk</app.stage.dockerDirectory>
         </properties>
+        <build>
+          <plugins>
+              <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+              </plugin>
+          </plugins>
+        </build>
       </profile>
       <profile>
         <id>jetty</id>
@@ -48,6 +52,13 @@
           <project.packaging>war</project.packaging>
           <app.stage.dockerDirectory>src/main/docker-jetty</app.stage.dockerDirectory>
         </properties>
+        <dependencies>
+	  <dependency>
+	      <groupId>org.springframework.boot</groupId>
+	      <artifactId>spring-boot-starter-tomcat</artifactId>
+	      <scope>provided</scope>
+	  </dependency>
+        </dependencies>
       </profile>
     </profiles>
 </project>
