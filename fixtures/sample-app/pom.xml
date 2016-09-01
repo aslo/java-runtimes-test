@@ -6,7 +6,7 @@
     <groupId>com.example</groupId>
     <artifactId>sample-app</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <packaging>war</packaging>
+    <packaging>${project.packaging}</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -23,8 +23,8 @@
     <build>
 	<plugins>
 	    <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
+              <groupId>org.springframework.boot</groupId>
+              <artifactId>spring-boot-maven-plugin</artifactId>
 	    </plugin>
 	    <plugin>
 	      <groupId>com.google.cloud.tools</groupId>
@@ -33,4 +33,21 @@
 	    </plugin>
 	</plugins>
     </build>
+
+    <profiles>
+      <profile>
+        <id>openjdk</id>
+        <properties>
+          <project.packaging>jar</project.packaging>
+          <app.stage.dockerDirectory>src/main/docker-openjdk</app.stage.dockerDirectory>
+        </properties>
+      </profile>
+      <profile>
+        <id>jetty</id>
+        <properties>
+          <project.packaging>war</project.packaging>
+          <app.stage.dockerDirectory>src/main/docker-jetty</app.stage.dockerDirectory>
+        </properties>
+      </profile>
+    </profiles>
 </project>
