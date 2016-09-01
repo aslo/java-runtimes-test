@@ -7,25 +7,25 @@ function get_active_project() {
 }
 
 function push_image() {
-  ARTIFACT=$1
-  RUNTIME_NAME=$2
+  artifact=$1
+  runtime_name=$2
 
-  GCP_PROJECT=`get_active_project`
-  echo Project: $GCP_PROJECT
-  DOCKER_NAMESPACE=gcr.io/${GCP_PROJECT}
+  gcp_project=`get_active_project`
+  echo Project: $gcp_project
+  docker_namespace=gcr.io/${gcp_project}
 
-  CANDIDATE_NAME=`date +%Y-%m-%d_%H_%M`
-  echo "CANDIDATE_NAME:${CANDIDATE_NAME}"
+  candidate_name=`date +%Y-%m-%d_%H_%M`
+  echo "CANDIDATE_NAME:${candidate_name}"
 
-  IMAGE_NAME="${DOCKER_NAMESPACE}/${RUNTIME_NAME}:${CANDIDATE_NAME}"
-  docker tag "${ARTIFACT}" "${IMAGE_NAME}"
-  echo "Pushing $IMAGE_NAME"
-  gcloud docker push "${IMAGE_NAME}"
+  image_name="${docker_namespace}/${runtime_name}:${candidate_name}"
+  docker tag "${artifact}" "${image_name}"
+  echo "Pushing $image_name"
+  gcloud docker push "${image_name}"
 
-  TESTING="${DOCKER_NAMESPACE}/${RUNTIME_NAME}:testing"
-  docker tag -f "${ARTIFACT}" "${TESTING}"
-  echo "Pushing $TESTING"
-  gcloud docker push "${TESTING}"
+  testing="${docker_namespace}/${runtime_name}:testing"
+  docker tag -f "${artifact}" "${testing}"
+  echo "Pushing $testing"
+  gcloud docker push "${testing}"
 }
 
 function deploy() {
