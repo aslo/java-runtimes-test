@@ -1,6 +1,11 @@
 # Java Runtimes Tests
 This repository contains integration tests for the Google Cloud Java runtimes. Tests are implemented as bash scripts.
 
+## Setup
+1. Create a test project on the Google Cloud Console and enable billing.
+2. Install the [Google Cloud SDK](https://cloud.google.com/sdk/docs/)
+3. Run `gcloud init` to authenticate and configure the Google Cloud SDK.
+
 ## Run the tests
 To run the full test suite:
 ```
