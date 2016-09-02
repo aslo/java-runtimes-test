@@ -48,7 +48,6 @@
       <id>openjdk</id>
       <properties>
         <project.packaging>jar</project.packaging>
-        <app.stage.dockerDirectory>src/main/docker-openjdk</app.stage.dockerDirectory>
       </properties>
       <build>
         <resources>
@@ -70,7 +69,6 @@
       <id>jetty</id>
       <properties>
         <project.packaging>war</project.packaging>
-        <app.stage.dockerDirectory>src/main/docker-jetty</app.stage.dockerDirectory>
       </properties>
       <dependencies>
         <dependency>
