@@ -12,7 +12,7 @@ source $project_root/helpers.sh
 
 # TODO grep this from deploy output
 project=`get_active_project`
-project_url_suffix="$(echo $project | tr _ -).appspot.com"
+project_url_suffix="$project.appspot.com"
 project_version="debugger-test"
 deployed_service_url="https://$project_version-dot-$project_url_suffix"
 
